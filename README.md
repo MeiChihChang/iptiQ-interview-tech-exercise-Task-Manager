@@ -11,7 +11,9 @@ Consists of 2 classes:
 
 ## TaskManager class
 This class creates and initialises a set number of workers and managers addprocess, kill and list functions.
-MAX_CAPACITY = min(multiprocessing.cpu_count(), 32)
+
+MAX_CAPACITY = min(multiprocessing.cpu_count(), 6)
+
 The prefixed maximum capacity :MAX_CAPACITY is the limitation can not have more than a certain number of running processes within the manager
 
 ### addprocess(TaskProcess, mode=None)
