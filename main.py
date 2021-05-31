@@ -2,7 +2,7 @@ from taskmgr import TaskProcess, TaskManager
 import os
 import time
 
-PROCESS_PRIORITY_LEVEL = range(0,5)  # process priority level range from 0 to 4. Level 0 is the highest.
+PROCESS_PRIORITY_LEVEL = range(0,3)  # process priority level range from 0 to 2. Level 0 is the highest.
 
 def info(title):
     print(title)
@@ -15,8 +15,8 @@ def long_test_task(name):
 if __name__ == '__main__' :
     manager = TaskManager()
     p_list = []
-    for idx in reversed(range(8)):
-        p = TaskProcess(target=long_test_task, priority=min(idx,4), args=(str(idx),))
+    for idx in reversed(range(6)):
+        p = TaskProcess(target=long_test_task, priority=idx % 3, args=(str(idx),))
         p_list.append(p)
         result = TaskManager().addProcess(p)
         if result == True:
@@ -26,12 +26,12 @@ if __name__ == '__main__' :
     ####################################################################################################
     ## TEST addprocess functions     
     
-    p8 = TaskProcess(target=long_test_task, priority=1, args=(str(8),))
-    p_list.append(p8)
+    p7 = TaskProcess(target=long_test_task, priority=2, args=(str(7),))
+    p_list.append(p7)
     
     # addprocess sould be rejected with default mode: accept new processes till when there is capacity
-    result = manager.addProcess(p8)
-    print("add process {} with defailt mode, result = {}".format(p8, result))  
+    result = manager.addProcess(p7)
+    print("add process {} with defailt mode, result = {}".format(p7, result))  
 
     print("####################\npid   priority time")  
     task_list = manager.list()      
@@ -39,12 +39,12 @@ if __name__ == '__main__' :
         print("{} {}        {}".format(item[0], item[1], item[2]))  
 
     # addprocess sould be not rejected with "force" mode: accept new processes with killing and removing from the TM list the oldest one (First-In, First-Out) when the max size is reached
-    result = manager.addProcess(p8, mode="force")
+    result = manager.addProcess(p7, mode="force")
     if result == True:
-        p8.start()
+        p7.start()
         time.sleep(1)  
          
-    print("add process {} result = {} with force mode,".format(p8.pid, result))   
+    print("add process {} result = {} with force mode,".format(p7.pid, result))   
     
     print("####################\npid   priority time")  
     task_list = manager.list()      
@@ -52,13 +52,13 @@ if __name__ == '__main__' :
         print("{} {}        {}".format(item[0], item[1], item[2]))  
 
     # a process with higher priority should be added by addprocess with priority mode, which the lowest priority and the oldest one is removed
-    p9 = TaskProcess(target=long_test_task, priority=1, args=(str(9),)) 
-    p_list.append(p9)
-    result = manager.addProcess(p9, mode="priority")
+    p8 = TaskProcess(target=long_test_task, priority=1, args=(str(8),)) 
+    p_list.append(p8)
+    result = manager.addProcess(p8, mode="priority")
     if result == True:
-        p9.start()
+        p8.start()
         time.sleep(1)   
-    print("add process {} priority: {} result = {} with priority mode,".format(p9.pid, p9.priority, result))  
+    print("add process {} priority: {} result = {} with priority mode,".format(p8.pid, p8.priority, result))  
 
     print("####################\npid   priority time")  
     task_list = manager.list()      
@@ -68,8 +68,8 @@ if __name__ == '__main__' :
     ####################################################################################################
     ## TEST kill & list functions       
 
-    print("####################\nkill the process: pid = {}".format(p_list[4].pid))       
-    manager.kill(p_list[4].pid)
+    print("####################\nkill the process: pid = {}".format(p_list[2].pid))       
+    manager.kill(p_list[2].pid)
 
     print("####################\npid   priority time")  
     task_list = manager.list()      

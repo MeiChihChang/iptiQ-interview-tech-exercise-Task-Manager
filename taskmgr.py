@@ -2,7 +2,7 @@ import multiprocessing
 from datetime import datetime
 
 # prefixed maximum capacity can not over # of cpu core
-MAX_CAPACITY = min(multiprocessing.cpu_count(), 32)
+MAX_CAPACITY = min(multiprocessing.cpu_count(), 6)
 
 class TaskProcess(multiprocessing.Process):
     priority = -1
