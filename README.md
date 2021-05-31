@@ -5,7 +5,7 @@ Example of a Python multiprocessing implementation to manage worker processes wi
 
 Consists of 2 classes:
 
-## TaskManager
+## TaskManager class
 This class creates and initialises a set number of workers and managers addprocess, kill and list functions.
 MAX_CAPACITY = min(multiprocessing.cpu_count(), 32)
 The prefixed maximum capacity :MAX_CAPACITY is the limitation can not have more than a certain number of running processes within the manager
@@ -26,7 +26,7 @@ when pid is not None, the manager will kill a specific process with pid
 when priority>0, the manager will kill all processes with the same priority
 when priority<0, the manager will kill all processes
 
-## TaskProcess
+## TaskProcess class
 The WorkerProcess class extends the base multiprocessing.Process class to add process's priority (low, medium, high) featue.
 
 ## main.py
