@@ -4,7 +4,7 @@ iptiQ EMEA P&amp;C interview tech exercise
 ## Requirement
 Python version >= 3.6
 
-## Descrition
+## Description
 Example of a Python multiprocessing implementation to manage worker processes with addprocess, kill and list functions
 
 Consists of 2 classes:
